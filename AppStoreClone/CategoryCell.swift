@@ -98,6 +98,22 @@ class AppCell: UICollectionViewCell {
         didSet {
             if let name = app?.name {
                 nameLabel.text = name
+                let rect = NSString(string: name ).boundingRect(with: CGSize(width: frame.width, height: 1000),
+                                                                      options: NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin),
+                                                                      attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 14)],
+                                                                      context: nil).size
+                
+                nameLabel.frame = CGRect(x: 0, y: frame.width + 5, width: frame.width, height: 40)
+                nameLabel.sizeToFit()
+                
+                if (rect.height > 20) {
+                    categoryLabel.frame = CGRect(x: 0, y: frame.width + 38, width: frame.width, height: 20)
+                    priceLabel.frame = CGRect(x: 0, y: frame.width + 56, width: frame.width, height: 20)
+
+                } else {
+                    categoryLabel.frame = CGRect(x: 0, y: frame.width + 22, width: frame.width, height: 20)
+                    priceLabel.frame = CGRect(x: 0, y: frame.width + 40, width: frame.width, height: 20)
+                }
             }
             categoryLabel.text = app?.category
             if let imageName = app?.imageName {
@@ -161,10 +177,5 @@ class AppCell: UICollectionViewCell {
         addSubview(priceLabel)
         
         imageView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.width)
-        nameLabel.frame = CGRect(x: 0, y: frame.width + 2, width: frame.width, height: 40)
-        categoryLabel.frame = CGRect(x: 0, y: frame.width + 42, width: frame.width, height: 20)
-        priceLabel.frame = CGRect(x: 0, y: frame.width + 60, width: frame.width, height: 20)
-        
-        
     }
 }

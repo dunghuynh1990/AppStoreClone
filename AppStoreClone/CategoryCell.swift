@@ -15,6 +15,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
             if let name = appCategory?.name {
                 nameLabel.text = name
             }
+            appsCollectionView.reloadData()
         }
     }
     
@@ -41,8 +42,10 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
         collectionView.backgroundColor = UIColor.clear
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
         return collectionView
     }()
     
@@ -62,6 +65,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         
         appsCollectionView.dataSource = self
         appsCollectionView.delegate = self
+        
         appsCollectionView.register(AppCell.self, forCellWithReuseIdentifier: cellId)
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0" : nameLabel]))
@@ -130,7 +134,7 @@ class AppCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -170,7 +174,7 @@ class AppCell: UICollectionViewCell {
         return label
     }()
     
-    func setupView() {
+    func setupViews() {
         addSubview(imageView)
         addSubview(nameLabel)
         addSubview(categoryLabel)

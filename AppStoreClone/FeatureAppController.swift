@@ -32,17 +32,26 @@ class FeatureAppController: UICollectionViewController, UICollectionViewDelegate
         collectionView?.register(Header.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
     }
     
+    func showAppDetailForApp(app:App) {
+        let layout = UICollectionViewFlowLayout()
+        let appDetailController = AppDetailController(collectionViewLayout: layout)
+        appDetailController.app = app
+        navigationController?.pushViewController(appDetailController, animated: true)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: CategoryCell
         
         if indexPath.item == 2 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: largeCellId, for: indexPath) as! LargeCategoryCell
+            cell.featureAppController = self
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CategoryCell
+            cell.featureAppController = self
         }
         
         cell.appCategory = appCategories?[indexPath.item]
-//        cell.featuredAppsController = self
+        
         return cell
     }
     
